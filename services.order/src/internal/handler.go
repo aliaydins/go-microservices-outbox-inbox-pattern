@@ -25,5 +25,4 @@ func (h *Handler) iRoutes(router *gin.Engine) {
 	routerGroup.GET("/health", h.health)
 	routerGroup.GET("/outbox", h.getList)
 	routerGroup.POST("/order", h.createOrder)
-
 }

@@ -27,7 +27,7 @@ func (r *Repository) CreateOutbox(outbox *entity.Outbox) error {
 
 func (r *Repository) GetOutboxList() ([]entity.Outbox, error) {
 	var list []entity.Outbox
-	err := r.db.Where(&entity.Outbox{IsSent: false}).Find(&list).Error
+	err := r.db.Where("is_sent = ?", false).Find(&list).Error
 	if err != nil {
 		return nil, err
 	}

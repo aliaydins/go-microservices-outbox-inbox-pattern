@@ -8,18 +8,19 @@ import (
 var AppConfig Config
 
 type Config struct {
-	AppPort        string `mapstructure:"APP_PORT"`
-	DbDriver       string `mapstructure:"DB_DRIVER"`
-	DbUser         string `mapstructure:"DB_USER"`
-	DbPassword     string `mapstructure:"DB_PASSWORD"`
-	DbPort         string `mapstructure:"DB_PORT"`
-	DbHost         string `mapstructure:"DB_HOST"`
-	DbName         string `mapstructure:"DB_NAME"`
-	RabbitUser     string `mapstructure:"RABBIT_USER"`
-	RabbitPassword string `mapstructure:"RABBIT_PASSWORD"`
-	RabbitHost     string `mapstructure:"RABBIT_HOST"`
-	RabbitPort     string `mapstructure:"RABBIT_PORT"`
-	OrderExchange  string `mapstructure:"ORDER_EXCHANGE"`
+	AppPort           string `mapstructure:"APP_PORT"`
+	DbDriver          string `mapstructure:"DB_DRIVER"`
+	DbUser            string `mapstructure:"DB_USER"`
+	DbPassword        string `mapstructure:"DB_PASSWORD"`
+	DbPort            string `mapstructure:"DB_PORT"`
+	DbHost            string `mapstructure:"DB_HOST"`
+	DbName            string `mapstructure:"DB_NAME"`
+	RabbitUser        string `mapstructure:"RABBIT_USER"`
+	RabbitPassword    string `mapstructure:"RABBIT_PASSWORD"`
+	RabbitHost        string `mapstructure:"RABBIT_HOST"`
+	RabbitPort        string `mapstructure:"RABBIT_PORT"`
+	OrderExchange     string `mapstructure:"ORDER_EXCHANGE"`
+	NotificationQueue string `mapstructure:"NOTIFICATION_QUEUE"`
 }
 
 func (c Config) GetDBURL() string {

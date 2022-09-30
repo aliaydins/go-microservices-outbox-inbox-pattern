@@ -3,18 +3,12 @@ package worker
 import (
 	"encoding/json"
 	"github.com/aliaydins/oipattern/services.order/src/config"
+	"github.com/aliaydins/oipattern/services.order/src/event"
 	order "github.com/aliaydins/oipattern/services.order/src/internal"
 	"github.com/aliaydins/oipattern/shared/rabbitmq"
 	"github.com/robfig/cron/v3"
 	"log"
 )
-
-type payload struct {
-	OrderID    int
-	CustomerID int
-	Name       string
-	Amount     float64
-}
 
 func OutboxWorker(r *rabbitmq.RabbitMQ, repo *order.Repository) {
 	c := cron.New()
@@ -28,7 +22,7 @@ func OutboxWorker(r *rabbitmq.RabbitMQ, repo *order.Repository) {
 
 		if len(outboxList) != 0 {
 			for _, e := range outboxList {
-				payload, _ := json.Marshal(payload{OrderID: e.OrderID, CustomerID: e.CustomerID, Name: e.Name, Amount: e.Amount})
+				payload, _ := json.Marshal(event.OrderCreated{OrderID: e.OrderID, CustomerEmail: e.CustomerEmail, EventType: e.EventType})
 
 				err := r.Publish(payload, config.AppConfig.OrderExchange, e.EventType)
 				if err != nil {

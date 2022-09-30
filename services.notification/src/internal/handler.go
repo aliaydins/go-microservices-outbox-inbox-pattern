@@ -1,4 +1,4 @@
-package internal
+package notification
 
 import (
 	"github.com/aliaydins/oipattern/shared/middleware"
@@ -23,5 +23,6 @@ func (h *Handler) iRoutes(router *gin.Engine) {
 	router.Use(middleware.CORS())
 	routerGroup := router.Group("/")
 	routerGroup.GET("/health", h.health)
+	routerGroup.GET("/inbox", h.getList)
 
 }

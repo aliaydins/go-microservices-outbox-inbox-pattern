@@ -20,7 +20,7 @@ func (h *Handler) createOrder(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "order received successfully", "data": mapper(req)})
+	c.JSON(http.StatusOK, gin.H{"message": "order received successfully", "data": OrderMapper(req)})
 }
 
 func (h *Handler) getList(c *gin.Context) {
@@ -31,5 +31,4 @@ func (h *Handler) getList(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": outboxList})
-
 }

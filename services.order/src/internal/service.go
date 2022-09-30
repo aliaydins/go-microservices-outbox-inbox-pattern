@@ -20,11 +20,11 @@ func (s *Service) CreateOrder(order *entity.Order) error {
 	}
 
 	outboxItem := &entity.Outbox{
-		EventType:  "OrderCreated",
-		OrderID:    order.ID,
-		CustomerID: order.CustomerID,
-		Name:       order.Name,
-		Amount:     order.Amount,
+		EventType:     "OrderCreated",
+		OrderID:       order.ID,
+		CustomerEmail: order.CustomerEmail,
+		Name:          order.Name,
+		Amount:        order.Amount,
 	}
 
 	err = s.repo.CreateOutbox(outboxItem)
@@ -35,6 +35,16 @@ func (s *Service) CreateOrder(order *entity.Order) error {
 	return nil
 }
 
-func (s *Service) GetList() ([]entity.Outbox, error) {
-	return s.repo.GetOutboxList()
+func (s *Service) GetList() ([]OutboxDTO, error) {
+	outbox, err := s.repo.GetOutboxList()
+	if err != nil {
+		return nil, ErrOutboxGetList
+	}
+
+	oDto := make([]OutboxDTO, 0)
+	for _, e := range outbox {
+		oDto = append(oDto, OutboxMapper(&e))
+	}
+
+	return oDto, nil
 }
